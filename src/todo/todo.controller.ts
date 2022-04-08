@@ -10,10 +10,10 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { I18n, I18nContext } from 'nestjs-i18n';
-import { TodoItemDto } from 'src/dto/NewTodoItem.dto';
-import { SetItemStatusDto } from 'src/dto/SetItemStatusDto.dto';
-import { IResponse } from 'src/interfaces/response.interface';
-import { IItem } from 'src/interfaces/todo.interface';
+import { TodoItemDto } from '../dto/NewTodoItem.dto';
+import { SetItemStatusDto } from '../dto/SetItemStatusDto.dto';
+import { IResponse } from '../interfaces/response.interface';
+import { IItem } from '../interfaces/todo.interface';
 import { TodoService } from './todo.service';
 
 @ApiTags('todo')
@@ -45,11 +45,18 @@ export class TodoController {
     @Query('itemId') itemId,
     @I18n() i18n: I18nContext,
   ): Promise<IResponse> {
-    this.todoService.removeItem(itemId);
-    return await {
-      statusCode: 200,
-      message: i18n.t('events.DELETE_ITEM_SUCCESS'),
-    };
+    const status = this.todoService.removeItem(itemId);
+    if (status) {
+      return await {
+        statusCode: 200,
+        message: i18n.t('events.DELETE_ITEM_SUCCESS'),
+      };
+    } else {
+      return {
+        statusCode: 400,
+        message: i18n.t('events.ITEM_DOES_NOT_EXIST'),
+      };
+    }
   }
 
   @Get('get-all')
@@ -58,7 +65,21 @@ export class TodoController {
   }
 
   @Post('set-status')
-  setItemStatus(@Body() setItemStatusDto: SetItemStatusDto) {
-    return this.todoService.setItemStatus(setItemStatusDto);
+  setItemStatus(
+    @Body() setItemStatusDto: SetItemStatusDto,
+    @I18n() i18n: I18nContext,
+  ) {
+    const status = this.todoService.setItemStatus(setItemStatusDto);
+    if (status) {
+      return {
+        statusCode: 200,
+        message: i18n.t('events.UPDATE_ITEM_SUCCESS'),
+      };
+    } else {
+      return {
+        statusCode: 400,
+        message: i18n.t('events.ITEM_DOES_NOT_EXIST'),
+      };
+    }
   }
 }
