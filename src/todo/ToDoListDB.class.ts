@@ -1,7 +1,6 @@
 import { SetItemStatusDto } from 'src/dto/SetItemStatusDto.dto';
 import { TodoItemDto } from '../dto/NewTodoItem.dto';
 import produce from 'immer';
-import e from 'express';
 
 enum Filters {
   finished = 'finished',
@@ -30,6 +29,8 @@ export class ToDoListDB {
     });
     return new ToDoListDB(nextState);
   }
+
+  //TODO type error on slice (run all todo.service tests to see)
 
   removeItem(id: string) {
     const index = this.list.findIndex((el) => el.id == id);
