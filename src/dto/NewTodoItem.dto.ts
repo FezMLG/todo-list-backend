@@ -1,7 +1,7 @@
 import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
 export class NewTodoItemDto {
-  @IsNumber()
+  @IsString()
   readonly id: string;
 
   @IsString()

@@ -1,7 +1,7 @@
-import { IsBoolean, IsNumber } from 'class-validator';
+import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
 export class SetItemStatusDto {
-  @IsNumber()
+  @IsString()
   readonly id: string;
 
   @IsBoolean()

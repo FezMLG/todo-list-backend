@@ -2,6 +2,11 @@ import { SetItemStatusDto } from 'src/dto/SetItemStatusDto.dto';
 import { NewTodoItemDto } from '../dto/NewTodoItem.dto';
 import produce from 'immer';
 
+enum Filters {
+  finished = 'finished',
+  unfinished = 'unfinished',
+}
+
 export class ToDoListDB {
   constructor(private readonly list: NewTodoItemDto[]) {}
 
@@ -36,8 +41,16 @@ export class ToDoListDB {
     return find ? find : false;
   }
 
-  getAll() {
-    return this.list;
+  getAll(filter?: Filters) {
+    if (filter) {
+      if (filter == Filters.finished) {
+        return this.list.find((el) => el.isDone == true);
+      } else if (filter == Filters.unfinished) {
+        return this.list.find((el) => el.isDone == false);
+      }
+    } else {
+      return this.list;
+    }
   }
 
   clearList() {

@@ -33,8 +33,8 @@ export class TodoController {
   }
 
   @Get('get-all')
-  getAllItems() {
-    return this.todoService.getAllItems();
+  getAllItems(@Query('filter') filter) {
+    return this.todoService.getAllItems(filter);
   }
 
   @Post('set-status')

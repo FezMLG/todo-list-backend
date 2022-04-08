@@ -4,11 +4,19 @@ import { SetItemStatusDto } from 'src/dto/SetItemStatusDto.dto';
 import { ToDoListDB } from './ToDoListDB.class';
 
 let listdb = new ToDoListDB([]);
+enum Filters {
+  finished = 'finished',
+  unfinished = 'unfinished',
+}
 
 @Injectable()
 export class TodoService {
-  getAllItems() {
-    return listdb.getAll();
+  getAllItems(filter?: Filters) {
+    if (filter) {
+      return listdb.getAll(filter);
+    } else {
+      return listdb.getAll();
+    }
   }
 
   setItem(newTodoItemDto: NewTodoItemDto) {
