@@ -1,7 +1,19 @@
-import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { NewTodoItemDto } from 'src/dto/NewTodoItem.dto';
+import { I18n, I18nContext } from 'nestjs-i18n';
+import { TodoItemDto } from 'src/dto/NewTodoItem.dto';
 import { SetItemStatusDto } from 'src/dto/SetItemStatusDto.dto';
+import { IResponse } from 'src/interfaces/response.interface';
+import { IItem } from 'src/interfaces/todo.interface';
 import { TodoService } from './todo.service';
 
 @ApiTags('todo')
@@ -10,32 +22,38 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Post('set-item')
-  setItem(@Body() newTodoItemDto: NewTodoItemDto) {
+  async setItem(
+    @Body() newTodoItemDto: TodoItemDto,
+    @I18n() i18n: I18nContext,
+  ): Promise<IResponse> {
     const response = this.todoService.setItem(newTodoItemDto);
     if (response) {
-      return {
+      return await {
         statusCode: 200,
-        message: 'created item',
+        message: i18n.t('events.CREATE_ITEM_SUCCESS'),
       };
     } else {
-      return {
-        statusCode: 200,
-        message: 'error occurred',
-      };
+      throw new HttpException(
+        await i18n.t('events.SERVER_ERROR'),
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
   @Delete('remove-item')
-  removeItem(@Query('itemId') itemId) {
+  async removeItem(
+    @Query('itemId') itemId,
+    @I18n() i18n: I18nContext,
+  ): Promise<IResponse> {
     this.todoService.removeItem(itemId);
-    return {
+    return await {
       statusCode: 200,
-      message: 'removed',
+      message: i18n.t('events.DELETE_ITEM_SUCCESS'),
     };
   }
 
   @Get('get-all')
-  getAllItems(@Query('filter') filter) {
+  getAllItems(@Query('filter') filter): IItem | IItem[] {
     return this.todoService.getAllItems(filter);
   }
 

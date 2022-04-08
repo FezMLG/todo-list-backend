@@ -1,5 +1,5 @@
 import { SetItemStatusDto } from 'src/dto/SetItemStatusDto.dto';
-import { NewTodoItemDto } from '../dto/NewTodoItem.dto';
+import { TodoItemDto } from '../dto/NewTodoItem.dto';
 import produce from 'immer';
 
 enum Filters {
@@ -8,13 +8,13 @@ enum Filters {
 }
 
 export class ToDoListDB {
-  constructor(private readonly list: NewTodoItemDto[]) {}
+  constructor(private readonly list: TodoItemDto[]) {}
 
-  saveItem(item: NewTodoItemDto) {
+  saveItem(item: TodoItemDto) {
     return new ToDoListDB(this.list.concat(item));
   }
 
-  updateItem(item: NewTodoItemDto) {
+  updateItem(item: TodoItemDto) {
     const nextState = produce(this.list, (draft) => {
       const index = this.list.findIndex((el) => el.id == item.id);
       draft[index] = item;

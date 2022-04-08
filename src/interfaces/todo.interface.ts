@@ -1,4 +1,6 @@
-export interface INewItem {
+export interface IItem {
+  id: string;
   title: string;
   description: string;
+  isDone: boolean;
 }

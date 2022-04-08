@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { NewTodoItemDto } from 'src/dto/NewTodoItem.dto';
+import { TodoItemDto } from 'src/dto/NewTodoItem.dto';
 import { SetItemStatusDto } from 'src/dto/SetItemStatusDto.dto';
 import { ToDoListDB } from './ToDoListDB.class';
 
@@ -19,22 +19,22 @@ export class TodoService {
     }
   }
 
-  setItem(newTodoItemDto: NewTodoItemDto) {
+  setItem(newTodoItemDto: TodoItemDto) {
     if (listdb.getItem(newTodoItemDto.id)) {
       listdb = listdb.updateItem(newTodoItemDto);
     } else {
       listdb = listdb.saveItem(newTodoItemDto);
     }
-    return 201;
+    return true;
   }
 
   removeItem(id: string) {
     listdb.removeItem(id);
-    return 200;
+    return true;
   }
 
   setItemStatus(setItemStatusDto: SetItemStatusDto) {
     listdb = listdb.setItemStatus(setItemStatusDto);
-    return 201;
+    return true;
   }
 }

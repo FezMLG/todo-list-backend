@@ -1,0 +1,5 @@
+{
+  "CREATE_ITEM_SUCCESS": "Successfully created item",
+  "DELETE_ITEM_SUCCESS": "Successfully deleted item",
+  "SERVER_ERROR": "There was some error wih server"
+}
