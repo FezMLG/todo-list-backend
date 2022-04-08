@@ -29,7 +29,7 @@ export class TodoController {
     const response = this.todoService.setItem(newTodoItemDto);
     if (response) {
       return await {
-        statusCode: 200,
+        statusCode: 201,
         message: i18n.t('events.CREATE_ITEM_SUCCESS'),
       };
     } else {
