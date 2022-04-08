@@ -1,5 +1,7 @@
+import { HttpStatus } from '@nestjs/common';
+
 export interface IResponse {
-  statusCode: 200;
+  statusCode: HttpStatus;
   message?: string;
   error?: string;
 }
