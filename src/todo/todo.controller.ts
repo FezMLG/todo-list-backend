@@ -7,9 +7,9 @@ import { TodoService } from './todo.service';
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
-  @Post('createItem')
-  createItem(@Body() newTodoItemDto: NewTodoItemDto) {
-    const response = this.todoService.createItem(newTodoItemDto);
+  @Post('set-item')
+  setItem(@Body() newTodoItemDto: NewTodoItemDto) {
+    const response = this.todoService.setItem(newTodoItemDto);
     if (response) {
       return {
         statusCode: 200,
@@ -23,13 +23,13 @@ export class TodoController {
     }
   }
 
-  @Get('getAll')
+  @Get('get-all')
   getAllItems() {
     return this.todoService.getAllItems();
   }
 
-  @Post('setStatus')
+  @Post('set-status')
   setItemStatus(@Body() setItemStatusDto: SetItemStatusDto) {
-    return this.todoService.setitemStatus(setItemStatusDto);
+    return this.todoService.setItemStatus(setItemStatusDto);
   }
 }

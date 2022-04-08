@@ -9,12 +9,25 @@ export class ToDoListDB {
     return new ToDoListDB(this.list.concat(item));
   }
 
+  updateItem(item: NewTodoItemDto) {
+    const nextState = produce(this.list, (draft) => {
+      const index = this.list.findIndex((el) => el.id == item.id);
+      draft[index] = item;
+    });
+    return new ToDoListDB(nextState);
+  }
+
   setItemStatus(status: SetItemStatusDto) {
     const nextState = produce(this.list, (draft) => {
       const index = this.list.findIndex((el) => el.id == status.id);
       draft[index].isDone = true;
     });
     return new ToDoListDB(nextState);
+  }
+
+  getItem(id: string) {
+    const find = this.list.find((el) => el.id == id);
+    return find ? find : false;
   }
 
   getAll() {

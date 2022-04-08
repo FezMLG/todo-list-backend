@@ -10,12 +10,17 @@ export class TodoService {
   getAllItems() {
     return listdb.getAll();
   }
-  createItem(newTodoItemDto: NewTodoItemDto) {
-    listdb = listdb.saveItem(newTodoItemDto);
+
+  setItem(newTodoItemDto: NewTodoItemDto) {
+    if (listdb.getItem(newTodoItemDto.id)) {
+      listdb = listdb.updateItem(newTodoItemDto);
+    } else {
+      listdb = listdb.saveItem(newTodoItemDto);
+    }
     return 201;
   }
 
-  setitemStatus(setItemStatusDto: SetItemStatusDto) {
+  setItemStatus(setItemStatusDto: SetItemStatusDto) {
     listdb = listdb.setItemStatus(setItemStatusDto);
     return 201;
   }
