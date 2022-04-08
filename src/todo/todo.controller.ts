@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { I18n, I18nContext } from 'nestjs-i18n';
-import { TodoItemDto } from '../dto/NewTodoItem.dto';
+import { TodoItemDto } from '../dto/TodoItem.dto';
 import { SetItemStatusDto } from '../dto/SetItemStatusDto.dto';
 import { IResponse } from '../interfaces/response.interface';
 import { IItem } from '../interfaces/todo.interface';

@@ -1,5 +1,5 @@
 import { SetItemStatusDto } from 'src/dto/SetItemStatusDto.dto';
-import { TodoItemDto } from '../dto/NewTodoItem.dto';
+import { TodoItemDto } from '../dto/TodoItem.dto';
 import produce from 'immer';
 
 enum Filters {

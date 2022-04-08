@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TodoItemDto } from '../dto/NewTodoItem.dto';
+import { TodoItemDto } from '../dto/TodoItem.dto';
 import { SetItemStatusDto } from '../dto/SetItemStatusDto.dto';
 import { Filters } from '../interfaces/filters.enum';
 import { ToDoListDB } from './ToDoListDB.class';
