@@ -25,6 +25,7 @@ export class ToDoListDB {
   setItemStatus(status: SetItemStatusDto) {
     const nextState = produce(this.list, (draft) => {
       const index = this.list.findIndex((el) => el.id == status.id);
+      console.log(index);
       draft[index].isDone = true;
     });
     return new ToDoListDB(nextState);
@@ -32,7 +33,7 @@ export class ToDoListDB {
 
   removeItem(id: string) {
     const index = this.list.findIndex((el) => el.id == id);
-    this.list.splice(index);
+    this.list.splice(index, 1);
     return true;
   }
 
@@ -44,9 +45,9 @@ export class ToDoListDB {
   getAll(filter?: Filters) {
     if (filter) {
       if (filter == Filters.finished) {
-        return this.list.find((el) => el.isDone == true);
+        return this.list.filter((el) => el.isDone == true);
       } else if (filter == Filters.unfinished) {
-        return this.list.find((el) => el.isDone == false);
+        return this.list.filter((el) => el.isDone == false);
       }
     } else {
       return this.list;
