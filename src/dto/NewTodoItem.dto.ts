@@ -1,10 +1,15 @@
-import { IsString } from 'class-validator';
-import { INewItem } from 'src/interfaces/todo.interface';
+import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
-export class NewTodoItemDto implements INewItem {
-  @IsString()
-  title: string;
+export class NewTodoItemDto {
+  @IsNumber()
+  readonly id: string;
 
   @IsString()
-  description: string;
+  readonly title: string;
+
+  @IsString()
+  readonly description: string;
+
+  @IsBoolean()
+  readonly isDone: boolean;
 }

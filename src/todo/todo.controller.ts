@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { NewTodoItemDto } from 'src/dto/NewTodoItem.dto';
+import { SetItemStatusDto } from 'src/dto/SetItemStatusDto.dto';
 import { TodoService } from './todo.service';
 
 @Controller('todo')
@@ -25,5 +26,10 @@ export class TodoController {
   @Get('getAll')
   getAllItems() {
     return this.todoService.getAllItems();
+  }
+
+  @Post('setStatus')
+  setItemStatus(@Body() setItemStatusDto: SetItemStatusDto) {
+    return this.todoService.setitemStatus(setItemStatusDto);
   }
 }
