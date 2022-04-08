@@ -52,10 +52,10 @@ export class TodoController {
         message: i18n.t('events.DELETE_ITEM_SUCCESS'),
       };
     } else {
-      return {
-        statusCode: 400,
-        message: i18n.t('events.ITEM_DOES_NOT_EXIST'),
-      };
+      throw new HttpException(
+        await i18n.t('events.ITEM_DOES_NOT_EXIST'),
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 
@@ -65,21 +65,21 @@ export class TodoController {
   }
 
   @Post('set-status')
-  setItemStatus(
+  async setItemStatus(
     @Body() setItemStatusDto: SetItemStatusDto,
     @I18n() i18n: I18nContext,
   ) {
     const status = this.todoService.setItemStatus(setItemStatusDto);
     if (status) {
       return {
-        statusCode: 200,
+        statusCode: 201,
         message: i18n.t('events.UPDATE_ITEM_SUCCESS'),
       };
     } else {
-      return {
-        statusCode: 400,
-        message: i18n.t('events.ITEM_DOES_NOT_EXIST'),
-      };
+      throw new HttpException(
+        await i18n.t('events.ITEM_DOES_NOT_EXIST'),
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 }

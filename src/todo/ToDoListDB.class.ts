@@ -1,6 +1,7 @@
 import { SetItemStatusDto } from 'src/dto/SetItemStatusDto.dto';
 import { TodoItemDto } from '../dto/NewTodoItem.dto';
 import produce from 'immer';
+import e from 'express';
 
 enum Filters {
   finished = 'finished',
@@ -25,7 +26,6 @@ export class ToDoListDB {
   setItemStatus(status: SetItemStatusDto) {
     const nextState = produce(this.list, (draft) => {
       const index = this.list.findIndex((el) => el.id == status.id);
-      console.log(index);
       draft[index].isDone = true;
     });
     return new ToDoListDB(nextState);
