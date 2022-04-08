@@ -25,6 +25,12 @@ export class ToDoListDB {
     return new ToDoListDB(nextState);
   }
 
+  removeItem(id: string) {
+    const index = this.list.findIndex((el) => el.id == id);
+    this.list.splice(index);
+    return true;
+  }
+
   getItem(id: string) {
     const find = this.list.find((el) => el.id == id);
     return find ? find : false;

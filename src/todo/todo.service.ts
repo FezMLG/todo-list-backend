@@ -20,6 +20,11 @@ export class TodoService {
     return 201;
   }
 
+  removeItem(id: string) {
+    listdb.removeItem(id);
+    return 200;
+  }
+
   setItemStatus(setItemStatusDto: SetItemStatusDto) {
     listdb = listdb.setItemStatus(setItemStatusDto);
     return 201;

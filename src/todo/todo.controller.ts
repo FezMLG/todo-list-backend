@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
 import { NewTodoItemDto } from 'src/dto/NewTodoItem.dto';
 import { SetItemStatusDto } from 'src/dto/SetItemStatusDto.dto';
 import { TodoService } from './todo.service';
@@ -21,6 +21,15 @@ export class TodoController {
         message: 'error occurred',
       };
     }
+  }
+
+  @Delete('remove-item')
+  removeItem(@Query('itemId') itemId) {
+    this.todoService.removeItem(itemId);
+    return {
+      statusCode: 200,
+      message: 'removed',
+    };
   }
 
   @Get('get-all')
